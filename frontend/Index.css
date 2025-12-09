@@ -66,3 +66,8 @@ li.done { opacity: 0.6; text-decoration: line-through; }
 }
 
 .delete-btn:hover { background: #c0392b; }
+.desc { color: #555; font-size: 0.9em; margin: 8px 0; }
+.task-content { flex: 1; }
+.actions button { margin-left: 8px; padding: 6px 12px; font-size: 0.9em; }
+.canceled { opacity: 0.5; text-decoration: line-through; background: #fff0f0; }
+.done small { color: green; }
