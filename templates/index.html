@@ -4,21 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لیست وظایف - پروژه مهندسی نرم‌افزار</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}?v=9">
 </head>
 <body>
     <div id="container">
         <h1>لیست وظایف من</h1>
         
-        <div>
+        <div id="add-section">
             <input type="text" id="titleInput" placeholder="عنوان وظیفه...">
-            <textarea id="descInput" placeholder="توضیحات (اختیاری)" rows="2"></textarea>
+            <textarea id="descInput" placeholder="توضیحات (اختیاری)" rows="3"></textarea>
             <button onclick="addTask()">اضافه کن</button>
         </div>
 
         <ul id="taskList"></ul>
     </div>
 
-    <script src="index.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}?v=9"></script>
 </body>
 </html>

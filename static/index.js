@@ -9,12 +9,17 @@ async function loadTasks() {
     tasks.forEach(task => {
         const isPending = task.status === 'pending';
         const li = document.createElement('li');
-        li.className = task.status === 'done' ? 'done' : task.status === 'canceled' ? 'canceled' : '';
+        li.className = task.status === 'done' ? 'done' : task.status === 'canceled' ? 'canceled' : 'pending';
 
         li.innerHTML = `
             <div class="task-main">
-                ${isPending ? `<input type="text" value="${task.title}" onchange="updateTitle(${task.id}, this.value)">` : `<strong>${task.title}</strong>`}
-                ${task.description ? `<p class="desc">${task.description}</p>` : ''}
+                <div class="title-row">
+                    ${isPending ? `
+                        <input type="text" class="edit-title" value="${task.title}" data-id="${task.id}">
+                        <button class="save-btn" onclick="saveEdit(${task.id})">ذخیره</button>
+                    ` : `<strong>${task.title}</strong>`}
+                </div>
+                <textarea class="edit-desc" data-id="${task.id}" ${isPending ? '' : 'disabled'}>${task.description || ''}</textarea>
                 <small>ساخته شده: ${new Date(task.created_at).toLocaleString('fa-IR')}</small>
                 ${task.status === 'done' ? `<small class="done">انجام شد: ${new Date(task.completed_at).toLocaleString('fa-IR')}</small>` : ''}
                 ${task.status === 'canceled' ? `<small class="canceled">کنسل شد: ${new Date(task.updated_at).toLocaleString('fa-IR')}</small>` : ''}
@@ -29,6 +34,20 @@ async function loadTasks() {
         `;
         ul.appendChild(li);
     });
+}
+
+async function saveEdit(id) {
+    const title = document.querySelector(`.edit-title[data-id="${id}"]`).value.trim();
+    const desc = document.querySelector(`.edit-desc[data-id="${id}"]`).value.trim();
+    
+    if (!title) return alert('عنوان نمی‌تونه خالی باشه!');
+
+    await fetch(`/api/tasks/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, description: desc })
+    });
+    loadTasks();
 }
 
 async function updateTitle(id, newTitle) {

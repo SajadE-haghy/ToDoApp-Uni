@@ -23,29 +23,7 @@ def create():
     db.session.add(task)
     db.session.commit()
     return jsonify(task.to_dict()), 201
-'''
-@bp.route('/tasks/<int:id>', methods=['PUT'])
-def update(id):
-    task = Task.query.get_or_404(id)
-    data = request.get_json()
-    
-    task.title = data.get('title', task.title)
-    task.description = data.get('description', task.description)
-    
-    new_status = data.get('status')
-    if new_status in ['pending', 'done', 'canceled']:
-        task.status = new_status
-        if new_status == 'done':
-            task.completed_at = datetime.now(TEHRAN)
-        elif new_status == 'canceled':
-            task.completed_at = None  # یا می‌تونی حذف کنی
-        else:
-            task.completed_at = None
 
-    task.updated_at = datetime.now(TEHRAN)
-    db.session.commit()
-    return jsonify(task.to_dict())
-'''
 @bp.route('/tasks/<int:id>', methods=['PUT'])
 def update(id):
     task = Task.query.get_or_404(id)
