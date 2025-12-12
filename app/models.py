@@ -4,7 +4,6 @@ import pytz
 
 db = SQLAlchemy()
 
-# تایم‌زون تهران — همیشه کار می‌کنه
 TEHRAN_TZ = pytz.timezone('Asia/Tehran')
 
 class Task(db.Model):
