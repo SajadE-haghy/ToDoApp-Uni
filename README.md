@@ -47,3 +47,7 @@ pip install -r requirements.txt
 # ۴. اجرای برنامه
 python app.py
 نمونه کد فایل .env :
+#FLASK_APP=<main file name ex: main.py or app.py>
+#FLASK_ENV=development
+#SECRET_KEY=<Long String >
+#DATABASE_URL=sqlite:///<path of ur sql lite DataBase>
